@@ -13,5 +13,6 @@ torchvision==0.21.0     # PIN: matches torch 2.6.0 (+cu124); transitive dep of w
 mlflow>=2.14            # optional live experiment tracking in train.py
 pandas>=2.0             # official_eval.py reads submission CSVs
 scikit-learn>=1.4       # official shared-task metrics
+pytest>=8.0             # test_*.py; three of them use fixtures and need the runner
 # NOTE: e31+ (Qwen3.5 / Gemma-4) need a transformers NEWER than the main .venv
 # supports; use the separately pinned LLM environment in requirements-llm.txt.
