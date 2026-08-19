@@ -1,0 +1,16 @@
+experiment_id: e11
+model_name: xlm-roberta-large
+task_mode: single
+subtasks: [NoPnx-PA]
+epochs: 10
+batch_size: 8
+lr: 1.0e-5
+max_length: 512
+output_dir: outputs/e11
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+trust_remote_code: false
+pos_weight: 2.0

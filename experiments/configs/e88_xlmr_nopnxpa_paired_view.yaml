@@ -1,0 +1,18 @@
+experiment_id: e88
+model_name: xlm-roberta-large
+task_mode: single
+subtasks: [NoPnx-PA]
+epochs: 10
+batch_size: 8
+lr: 1.0e-5
+max_length: 512
+output_dir: outputs/e88
+seed: 1
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+trust_remote_code: false
+pos_weight: 2.0   # byte-identical to e17 except the paired-view fields below
+paired_view_source: PA
+paired_consistency_alpha: 0.5

@@ -1,0 +1,23 @@
+experiment_id: e30
+model_name: xlm-roberta-large
+task_mode: single
+subtasks: [PA]
+epochs: 12
+batch_size: 8
+lr: 1.0e-5
+max_length: 512
+output_dir: outputs/e30
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+trust_remote_code: false
+pos_weight: 3.0
+head_type: bilstm   # all winning tricks combined — best-single-model candidate
+lstm_hidden: 256
+lstm_layers: 1
+fgm: true
+fgm_epsilon: 1.0
+swa: true
+swa_start_epoch: 9

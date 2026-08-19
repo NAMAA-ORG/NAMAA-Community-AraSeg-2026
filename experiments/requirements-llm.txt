@@ -1,0 +1,19 @@
+# Exact env for the LLM (LoRA) ensemble members e31+ (Qwen3.5 / Gemma-4).
+# Frozen from KISSKI .venv-llm 2026-07-15 — this is the portability gate for
+# e32/e33/e40/e41/e42: transformers must be new enough to DEFINE the
+# Qwen3_5 / Gemma4Unified model classes, or the base never instantiates and
+# load_state_dict never runs. The full-FT xlm-r members load on any recent
+# transformers; these pins exist for the LoRA five.
+#
+# torch/torchvision are the +cu124 wheels (KISSKI driver 12.8; RunPod A100 12.x).
+# Install torch first from the cu124 index, then the rest:
+#   pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cu124
+#   pip install -r requirements-llm.txt
+#
+torch==2.6.0
+torchvision==0.21.0
+transformers==5.12.1
+peft==0.19.1
+accelerate==1.14.0
+tokenizers==0.22.2
+safetensors==0.8.0

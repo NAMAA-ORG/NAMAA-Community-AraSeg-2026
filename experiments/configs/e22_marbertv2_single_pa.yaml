@@ -1,0 +1,16 @@
+experiment_id: e22
+model_name: UBC-NLP/MARBERTv2
+task_mode: single
+subtasks: [PA]
+epochs: 10
+batch_size: 8
+lr: 2.0e-5
+max_length: 512
+output_dir: outputs/e22
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+trust_remote_code: false
+pos_weight: 3.0   # MARBERTv2 (Arabic MSA+dialect) on PA — ensemble diversity vs multilingual XLM-R

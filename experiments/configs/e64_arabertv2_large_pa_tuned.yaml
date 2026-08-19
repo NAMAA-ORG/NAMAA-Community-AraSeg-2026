@@ -1,0 +1,21 @@
+# e64 — AraBERT-large-v02 with the CURRENT tuned PA recipe (identical to e25's recipe,
+# only the model swapped). Isolates "large Arabic encoder vs large multilingual (XLM-R)"
+# under one recipe. e1 ran this same model but with the stale weak recipe (5 ep, no
+# pos_weight, no stride) → 0.8457, recall-starved. This is the fair re-run.
+experiment_id: e64
+model_name: aubmindlab/bert-large-arabertv02   # 340M, 1024-dim, 24L — cached (e1 used it)
+task_mode: single
+subtasks: [PA]
+epochs: 10
+batch_size: 8
+lr: 2.0e-5              # Arabic-BERT convention (e1/e22), not XLM-R's 1e-5
+max_length: 512
+output_dir: outputs/e64
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+trust_remote_code: false
+pos_weight: 3.0        # the recall lever e1 lacked
+window_stride: 256     # matches e25 (our PA ensemble member)

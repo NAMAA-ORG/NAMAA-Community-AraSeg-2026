@@ -1,0 +1,17 @@
+# AraBERT Large v2 — single-task baseline on PA
+# Model is in HF cache: resolved automatically via HF_HOME env var set in SLURM script
+experiment_id: e1
+model_name: aubmindlab/bert-large-arabertv02   # Large (1024-dim), better than base
+task_mode: single
+subtasks: [PA]
+epochs: 5
+batch_size: 8          # Large model (340M params) — halve vs base
+lr: 2.0e-5
+max_length: 512
+output_dir: outputs/e1
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+trust_remote_code: false

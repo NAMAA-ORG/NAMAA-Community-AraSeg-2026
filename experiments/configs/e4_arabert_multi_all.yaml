@@ -1,0 +1,17 @@
+# AraBERT Large v2 — multi-task, all 4 subtasks
+# Tests whether multi-task training helps over E1 (single-task)
+experiment_id: e4
+model_name: aubmindlab/bert-large-arabertv02
+task_mode: multi
+subtasks: [PA, NoPnx-PA, NP, NoPnx-NP]
+epochs: 5
+batch_size: 8
+lr: 2.0e-5
+max_length: 512
+output_dir: outputs/e4
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+trust_remote_code: false

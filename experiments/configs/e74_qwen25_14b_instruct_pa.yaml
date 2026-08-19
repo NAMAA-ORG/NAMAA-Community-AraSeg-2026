@@ -1,0 +1,27 @@
+experiment_id: e74
+model_name: Qwen/Qwen2.5-14B-Instruct  # flat local dir; off-cluster == HF Qwen/Qwen2.5-14B-Instruct. The standard models--Qwen--Qwen2.5-14B-Instruct hub cache exists but has no snapshots/ (broken/incomplete) -- use this path, not the bare HF id.
+task_mode: single
+subtasks: [PA]
+epochs: 8
+batch_size: 2
+grad_accum: 2
+lr: 2.0e-4
+max_length: 2048
+window_stride: 256
+output_dir: outputs/e74
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+pos_weight: 3.0
+head_type: linear
+torch_dtype: bfloat16
+bidirectional: true
+load_in_4bit: false
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+gradient_checkpointing: true
+rdrop_alpha: 0.5
+llrd_decay: 1.0

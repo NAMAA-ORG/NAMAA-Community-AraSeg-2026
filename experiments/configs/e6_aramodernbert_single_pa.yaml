@@ -1,0 +1,24 @@
+# AraModernBert-Base V1.0 (NAMAA-Space) — single-task on PA
+# Native ModernBERT, 8192-token context, 149M params, Arabic tokenizer (vocab 50280).
+# At max_length=8192 essentially every document fits whole -> NO truncation,
+# full-document context (structurally better than windowed XLM-R).
+#
+# REQUIRES transformers>=4.48 (ModernBERT native support) — run in the dedicated env.
+# Loads with plain AutoModel, so trust_remote_code: false.
+experiment_id: e6
+model_name: NAMAA-Space/AraModernBERT-Base-V1.0
+task_mode: single
+subtasks: [PA]
+epochs: 5
+batch_size: 8            # small model, but seqs can reach 8192 — drop to 4 if OOM
+lr: 3.0e-5
+max_length: 8192         # covers ~all docs in one window; windowing only the rare giant
+window_stride: 128       # overlap for the few docs that still exceed max_length
+output_dir: outputs/e6
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+trust_remote_code: false
+pos_weight: 1.0          # imbalance handled post-hoc by dev threshold tuning

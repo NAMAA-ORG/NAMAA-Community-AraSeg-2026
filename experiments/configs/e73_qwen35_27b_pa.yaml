@@ -1,0 +1,26 @@
+experiment_id: e73
+model_name: Qwen/Qwen3.5-27B  # KISSKI hub cache @ fc05daec18b0a78c049392ed2e771dde82bdf654; bare HF id, resolve_model_path returns it as-is and HF_HOME finds the snapshot
+task_mode: single
+subtasks: [PA]
+epochs: 8
+batch_size: 1
+grad_accum: 4
+lr: 2.0e-4
+max_length: 2048
+window_stride: 256
+output_dir: outputs/e73
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+pos_weight: 3.0
+head_type: linear
+torch_dtype: bfloat16
+bidirectional: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+gradient_checkpointing: true
+rdrop_alpha: 0.5
+llrd_decay: 1.0

@@ -1,0 +1,17 @@
+torch==2.6.0            # PIN: cu130 wheel (2.13.0) needs a CUDA-13 driver; KISSKI nodes are 12.8 -> install +cu124 from download.pytorch.org/whl/cu124
+transformers>=4.40
+datasets>=2.19
+accelerate>=0.28
+pyyaml>=6.0
+numpy>=1.24
+sentencepiece>=0.1.99   # SentencePiece-based tokenizers (mDeBERTa-v3, XLM-R)
+protobuf>=3.20          # required to convert mDeBERTa-v3 slow->fast tokenizer
+peft>=0.14              # LoRA adapters for LLM backbones (e31+)
+pytorch-crf>=0.7.2      # CRF head for structured per-word decoding (e37)
+wtpsplit>=2.1           # SaT/Segment-Any-Text baseline + calibration (sat_segment.py, Phase D)
+torchvision==0.21.0     # PIN: matches torch 2.6.0 (+cu124); transitive dep of wtpsplit -> skops.io -> transformers.models.aria. Bare/unpinned drags torch up to cu130 and kills GPU.
+mlflow>=2.14            # optional live experiment tracking in train.py
+pandas>=2.0             # official_eval.py reads submission CSVs
+scikit-learn>=1.4       # official shared-task metrics
+# NOTE: e31+ (Qwen3.5 / Gemma-4) need a transformers NEWER than the main .venv
+# supports; use the separately pinned LLM environment in requirements-llm.txt.

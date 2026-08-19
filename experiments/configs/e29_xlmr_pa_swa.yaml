@@ -1,0 +1,18 @@
+experiment_id: e29
+model_name: xlm-roberta-large
+task_mode: single
+subtasks: [PA]
+epochs: 12
+batch_size: 8
+lr: 1.0e-5
+max_length: 512
+output_dir: outputs/e29
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+trust_remote_code: false
+pos_weight: 3.0
+swa: true           # stochastic weight averaging over training tail (A/B vs e10)
+swa_start_epoch: 9  # average epochs 9-12

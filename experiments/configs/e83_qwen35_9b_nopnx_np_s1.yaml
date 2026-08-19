@@ -1,0 +1,25 @@
+experiment_id: e83
+model_name: Qwen/Qwen3.5-9B  # revision: c202236235762e1c871ad0ccb60c8ee5ba337b9a
+task_mode: single
+subtasks: [NoPnx-NP]
+epochs: 8
+batch_size: 4
+lr: 2.0e-4
+max_length: 2048
+output_dir: outputs/e83
+seed: 1
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+pos_weight: 3.0
+window_stride: 256
+head_type: linear
+torch_dtype: bfloat16
+bidirectional: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+gradient_checkpointing: true
+rdrop_alpha: 0.5
+llrd_decay: 1.0

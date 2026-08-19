@@ -1,0 +1,24 @@
+experiment_id: e72
+model_name: xlm-roberta-large
+task_mode: single
+subtasks: [NoPnx-NP]
+epochs: 10
+batch_size: 8
+lr: 1.0e-5
+max_length: 512
+output_dir: outputs/e72
+seed: 1
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+trust_remote_code: false
+pos_weight: 2.0
+# e71's recipe on the OTHER punctuation-free head. Byte-identical to e19 except the
+# two lines below, so e19 (test 0.8231 @0.50) is the matched control and any delta is
+# the restoration, not the backbone. e71 vs e17 was +0.64 on NoPnx-PA; one head cannot
+# tell us whether that is the recipe or that head -- see the e69/e70 asymmetry, where
+# the same candidate gated IN on NoPnx-NP and OUT on NoPnx-PA for no known reason.
+# Eval via: restore_then_segment.py --subtask NoPnx-NP --mode naqta --trained-member <this>
+naqta_restore: true
+naqta_restore_min_p: 0.3   # same as e71, so the two heads stay comparable

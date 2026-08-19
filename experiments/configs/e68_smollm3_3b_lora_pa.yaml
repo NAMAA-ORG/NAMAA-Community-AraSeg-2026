@@ -1,0 +1,35 @@
+# e68 — SmolLM3-3B LoRA on Kaggle T4 (PA diversity candidate, 2026-07-17).
+# Small-scale probe of a non-Arabic-native family (6 primary languages are
+# European; Arabic is a tertiary language with fewer training tokens per the
+# model card). No 4-bit needed — 3B fits fp16 on a 16 GB T4 with room to
+# spare, so this is a plain LoRA run, not QLoRA. fp16 compute (no bf16 on
+# Turing) still needs GradScaler. Recipe otherwise mirrors e34 (R-Drop, same
+# effective batch, same LoRA config) so any gain/loss is attributable to the
+# model swap, not the recipe.
+# Gate: dev F1 > 0.9407 (e32) to enter the PA pool — same bar as e67/ALLaM.
+experiment_id: e68
+model_name: HuggingFaceTB/SmolLM3-3B
+task_mode: single
+subtasks: [PA]
+epochs: 8
+batch_size: 4
+lr: 2.0e-4
+max_length: 2048
+output_dir: outputs/e68
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 2
+pos_weight: 3.0
+window_stride: 256
+head_type: linear
+torch_dtype: float16
+bidirectional: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+gradient_checkpointing: true
+rdrop_alpha: 0.5
+llrd_decay: 1.0
+fp16_scaler: true

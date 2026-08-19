@@ -1,0 +1,23 @@
+experiment_id: e33
+model_name: google/gemma-4-12B  # revision: e73636d4f797dec63c3081bb6ed5c7b0bb3f2089
+task_mode: single
+subtasks: [PA]
+epochs: 8
+batch_size: 2                         # 2 x 2048 tokens ≈ same tokens/step as 8 x 512 BERT batches
+lr: 1.0e-4                            # LoRA adapters + head (not full-FT 1e-5)
+max_length: 2048                      # most docs fit ONE window (PA P90 ~1700 subwords)
+window_stride: 256
+output_dir: outputs/e33
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.0
+grad_clip: 1.0
+num_workers: 4
+trust_remote_code: false
+pos_weight: 3.0
+torch_dtype: bfloat16
+bidirectional: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+gradient_checkpointing: true

@@ -1,0 +1,31 @@
+# e65 — Fanar-1-9B-Instruct (QCRI, Arabic-native 9B) as a bidirectional LoRA encoder.
+# Same recipe as e34 (Qwen3.5-9B + R-Drop, our carried-forward LLM recipe, PA 0.9322),
+# only the model swapped. This is the untested question behind the whole thread:
+# does an ARABIC-NATIVE model at the 9B scale beat our multilingual Qwen (0.9334) and
+# close the gap to leaderboard #1 (0.941)? Fanar is Gemma-based -> same attention/LoRA
+# path that already worked for Gemma-4-12B (e33) and Qwen (e32/e34).
+experiment_id: e65
+model_name: QCRI/Fanar-1-9B-Instruct
+task_mode: single
+subtasks: [PA]
+epochs: 8
+batch_size: 4
+lr: 2.0e-4
+max_length: 2048
+output_dir: outputs/e65
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+pos_weight: 3.0
+window_stride: 256
+head_type: linear
+torch_dtype: bfloat16
+bidirectional: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+gradient_checkpointing: true
+rdrop_alpha: 0.5
+llrd_decay: 1.0

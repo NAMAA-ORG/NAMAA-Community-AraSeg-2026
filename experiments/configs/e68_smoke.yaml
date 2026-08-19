@@ -1,0 +1,29 @@
+# e68 smoke — same LoRA path as e68 at 512 ctx, run with --limit-batches 16.
+# Purpose: prove load + unmask + LoRA + R-Drop + scaler all fire on a T4
+# before committing quota. Numbers are meaningless.
+experiment_id: e68_smoke
+model_name: HuggingFaceTB/SmolLM3-3B
+task_mode: single
+subtasks: [PA]
+epochs: 1
+batch_size: 4
+lr: 2.0e-4
+max_length: 512
+output_dir: outputs/e68_smoke
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 2
+pos_weight: 3.0
+window_stride: 128
+head_type: linear
+torch_dtype: float16
+bidirectional: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+gradient_checkpointing: true
+rdrop_alpha: 0.5
+llrd_decay: 1.0
+fp16_scaler: true

@@ -1,0 +1,36 @@
+# e67 — Qwen3.5-14B QLoRA on Kaggle T4 (PA defense, 2026-07-13).
+# The e34 R-Drop recipe scaled up one size within the proven family, adapted
+# only where the T4 forces it: 4-bit NF4 base (16 GB card), fp16 compute
+# (no bf16 on Turing) + GradScaler, batch 2 x accum 2 = effective batch 4
+# (matches e34), epochs 8->6 (dev curves peak at ep4-5; buys session margin).
+# Gate: dev F1 must beat e32's 0.9407 to enter the PA pool.
+# model_name is overwritten by the Kaggle notebook after it verifies which
+# Qwen3.5 checkpoint id actually exists on the Hub.
+experiment_id: e67
+model_name: Qwen/Qwen3.5-14B
+task_mode: single
+subtasks: [PA]
+epochs: 6
+batch_size: 2
+grad_accum: 2
+lr: 2.0e-4
+max_length: 2048
+output_dir: outputs/e67
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 2
+pos_weight: 3.0
+window_stride: 256
+head_type: linear
+torch_dtype: float16
+bidirectional: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+gradient_checkpointing: true
+rdrop_alpha: 0.5
+llrd_decay: 1.0
+load_in_4bit: true
+fp16_scaler: true

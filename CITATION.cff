@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the AraSeg Shared Task 2026 system paper."
+title: "AraSeg Shared Task 2026 experiment code"
+type: software
+authors:
+  - family-names: Ragab
+    given-names: Muhammed
+  - family-names: Al Jallad
+    given-names: Khloud
+  - family-names: Elsayed
+    given-names: Karim
+  - family-names: Nacar
+    given-names: Omer
+repository-code: "https://github.com/NAMAA-ORG/NAMAA-Community-AraSeg-2026"

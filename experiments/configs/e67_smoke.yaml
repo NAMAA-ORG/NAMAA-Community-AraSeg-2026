@@ -1,0 +1,31 @@
+# e67 smoke — same QLoRA path as e67 at 512 ctx, run with --limit-batches 16.
+# Purpose: prove 4-bit load + unmask + LoRA + R-Drop + scaler + resume all fire
+# on a T4 before committing ~20 quota-hours. Numbers are meaningless.
+experiment_id: e67_smoke
+model_name: Qwen/Qwen3.5-14B
+task_mode: single
+subtasks: [PA]
+epochs: 1
+batch_size: 2
+grad_accum: 2
+lr: 2.0e-4
+max_length: 512
+output_dir: outputs/e67_smoke
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 2
+pos_weight: 3.0
+window_stride: 128
+head_type: linear
+torch_dtype: float16
+bidirectional: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+gradient_checkpointing: true
+rdrop_alpha: 0.5
+llrd_decay: 1.0
+load_in_4bit: true
+fp16_scaler: true

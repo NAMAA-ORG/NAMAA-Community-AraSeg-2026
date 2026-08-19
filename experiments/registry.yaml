@@ -1,0 +1,224 @@
+# Master experiment registry. Update slurm_job, status, dev_f1, test_f1 as jobs run.
+# Statuses: planned | submitted | running | complete | failed
+
+experiments:
+  e34:
+    config: configs/e34_qwen35_9b_pa_rdrop.yaml
+    description: "Qwen3.5-9B PA + R-Drop only (ablation vs e32 baseline)"
+    phase: 1
+    workstream: A
+    depends_on: [e32]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  e35:
+    config: configs/e35_qwen35_9b_pa_llrd.yaml
+    description: "Qwen3.5-9B PA + LLRD only (ablation vs e32 baseline)"
+    phase: 1
+    workstream: A
+    depends_on: [e32]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  e36:
+    config: configs/e36_qwen35_9b_pa_rdrop_llrd.yaml
+    description: "Qwen3.5-9B PA + R-Drop + LLRD combined"
+    phase: 1
+    workstream: A
+    depends_on: [e32]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  e37:
+    config: configs/e37_xlmr_crf_pa.yaml
+    description: "XLM-R + CRF head, PA (paper 2x2 ablation row)"
+    phase: 1
+    workstream: B
+    depends_on: []
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  e38:
+    config: configs/e38_xlmr_multitask_joint.yaml
+    description: "Multi-task A: XLM-R joint training, all 4 subtasks"
+    phase: 1
+    workstream: C
+    depends_on: []
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  e39:
+    config: configs/e39_distill_pa_to_nopnx_pa.yaml
+    description: "Distillation PA->NoPnx-PA (teacher=e32, matched)"
+    phase: 1
+    workstream: D
+    depends_on: [e32]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  e48:
+    config: configs/e48_distill_pa_to_nopnx_np.yaml
+    description: "Distillation PA->NoPnx-NP (teacher=e32, cross-task)"
+    phase: 1
+    workstream: D
+    depends_on: [e32]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  e40:
+    config: configs/e40_qwen35_9b_np.yaml
+    description: "Wave B: Qwen3.5-9B NP + best R-Drop/LLRD combo"
+    phase: 2
+    workstream: A
+    depends_on: [e34, e35, e36]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: "Fill combo after reading e34-e36 results"
+  e41:
+    config: configs/e41_qwen35_9b_nopnx_pa.yaml
+    description: "Wave B: Qwen3.5-9B NoPnx-PA + best combo"
+    phase: 2
+    workstream: A
+    depends_on: [e34, e35, e36]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: "Fill combo after reading e34-e36 results"
+  e42:
+    config: configs/e42_qwen35_9b_nopnx_np.yaml
+    description: "Wave B: Qwen3.5-9B NoPnx-NP + best combo"
+    phase: 2
+    workstream: A
+    depends_on: [e34, e35, e36]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: "Fill combo after reading e34-e36 results"
+  e43:
+    config: configs/e43_xlmr_multitask_seq_pa.yaml
+    description: "Multi-task B: sequential fine-tune from e38, PA"
+    phase: 2
+    workstream: C
+    depends_on: [e38]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  e44:
+    config: configs/e44_xlmr_multitask_seq_nopnx_pa.yaml
+    description: "Multi-task B: sequential fine-tune from e38, NoPnx-PA"
+    phase: 2
+    workstream: C
+    depends_on: [e38]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  e45:
+    config: configs/e45_xlmr_multitask_seq_np.yaml
+    description: "Multi-task B: sequential fine-tune from e38, NP"
+    phase: 2
+    workstream: C
+    depends_on: [e38]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  e46:
+    config: configs/e46_xlmr_multitask_seq_nopnx_np.yaml
+    description: "Multi-task B: sequential fine-tune from e38, NoPnx-NP"
+    phase: 2
+    workstream: C
+    depends_on: [e38]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  e47:
+    config: configs/e47_distill_np_to_nopnx_np.yaml
+    description: "Distillation NP->NoPnx-NP (teacher=e40, matched)"
+    phase: 2
+    workstream: D
+    depends_on: [e40]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  e49:
+    config: configs/e49_distill_np_to_nopnx_pa.yaml
+    description: "Distillation NP->NoPnx-PA (teacher=e40, cross-task)"
+    phase: 2
+    workstream: D
+    depends_on: [e40]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  ens_pa:
+    config: null
+    description: "Exhaustive ensemble sweep, PA - all PA checkpoints"
+    phase: 3
+    workstream: E
+    depends_on: [e30, e23, e21, e22, e32, e33, e37, e43]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  ens_nopnx_pa:
+    config: null
+    description: "Exhaustive ensemble sweep, NoPnx-PA"
+    phase: 3
+    workstream: E
+    depends_on: [e18, e39, e41, e44, e49]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  ens_np:
+    config: null
+    description: "Exhaustive ensemble sweep, NP"
+    phase: 3
+    workstream: E
+    depends_on: [e15, e40, e45]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""
+  ens_nopnx_np:
+    config: null
+    description: "Exhaustive ensemble sweep, NoPnx-NP"
+    phase: 3
+    workstream: E
+    depends_on: [e19, e42, e46, e47, e48]
+    slurm_job: null
+    status: planned
+    dev_f1: null
+    test_f1: null
+    notes: ""

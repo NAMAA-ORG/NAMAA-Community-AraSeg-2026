@@ -1,0 +1,16 @@
+experiment_id: e24
+model_name: facebook/xlm-roberta-xl
+task_mode: single
+subtasks: [PA]
+epochs: 10
+batch_size: 4
+lr: 7.0e-6
+max_length: 512
+output_dir: outputs/e24
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+trust_remote_code: false
+pos_weight: 3.0   # XLM-R XL (3.5B) on PA — raw-capacity bet; bs=4 + low lr to fit 80GB & stabilize

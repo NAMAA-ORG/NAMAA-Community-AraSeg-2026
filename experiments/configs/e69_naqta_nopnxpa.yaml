@@ -1,0 +1,22 @@
+experiment_id: e69
+model_name: MostafaMaroof/Naqta
+task_mode: single
+subtasks: [NoPnx-PA]
+epochs: 10
+batch_size: 4
+lr: 1.0e-5
+max_length: 512
+output_dir: outputs/e69
+seed: 1
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 2
+grad_accum: 2            # effective batch 8 = e17/e19 parity, half the activations
+gradient_checkpointing: true  # ~30% slower, big activation saving; T4 has 14.56GB
+trust_remote_code: false
+pos_weight: 2.0
+# Naqta = XLM-R-large fine-tuned for Arabic punctuation restoration. AutoModel loads
+# its ENCODER only (the 8-class punctuation head is dropped); our boundary head is
+# fresh. Recipe is byte-identical to e17/e19 so the ONLY variable vs those members is
+# the initialisation: punctuation-aware vs vanilla xlm-roberta-large.

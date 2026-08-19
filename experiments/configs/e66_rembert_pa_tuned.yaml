@@ -1,0 +1,21 @@
+# RemBERT — the tuned PA recipe (identical to e25's, so the delta is the model, not the knobs).
+# Kholoud's RemBERT scored PA test 92.55 solo: above e25 (91.24) and e33 (91.87), below e32 (93.34).
+# Point of the run: PA is a flat logit average of XLM-R/Qwen/Gemma — RemBERT is a pretraining
+# family the pool has never seen, and PA is the head iMak AI Lab tied us on.
+experiment_id: e66
+model_name: google/rembert
+task_mode: single
+subtasks: [PA]
+epochs: 10
+batch_size: 8
+lr: 1.0e-5
+max_length: 512
+output_dir: outputs/e66
+seed: 42
+warmup_ratio: 0.1
+weight_decay: 0.01
+grad_clip: 1.0
+num_workers: 4
+trust_remote_code: false
+pos_weight: 3.0
+window_stride: 256
