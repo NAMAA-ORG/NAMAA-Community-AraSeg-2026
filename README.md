@@ -19,7 +19,7 @@ ablations and runs that failed their gate — not just the four submitted system
 ## Results
 
 Macro-averaged document-level boundary F1. P/R/F1 are on the labeled practice
-test; the blind column is the one-shot official Testing split (F1 only is
+test; the blind column is the held-out official Testing split (F1 only is
 reported by the organizers).
 
 | Subtask | Submitted system | P | R | F1 | Blind F1 | Rank |
@@ -29,8 +29,10 @@ reported by the organizers).
 | NoPnx-PA | MEMM decoder (7 + SaT) | 87.74 | 89.31 | **87.82** | 89.9 | 4/10 |
 | NoPnx-NP | MEMM decoder (6 + SaT) | 86.07 | 88.43 | **86.49** | 87.0 | 3/12 |
 
-All four systems were locked before the blind phase and submitted unchanged;
-the mean blind change was +0.3 F1.
+The mean blind change was +0.24 F1. The Testing phase accepted repeated
+submissions, and every version we uploaded had already cleared its prespecified
+paired-bootstrap gate on the practice test, so no blind score fed back into a
+selection decision.
 
 ## What the paper reports
 
@@ -44,7 +46,8 @@ the mean blind change was +0.3 F1.
   directionally on the blind data.
 - **Punctuation removal is the dominant remaining cost.** Mapping punctuated
   predictions onto punctuation-free tokens exposes +7.2 / +7.1 F1 of oracle
-  headroom, and the loss concentrates in scriptural text.
+  headroom (+6.6 / +6.5 against the later submitted systems, which the map-back
+  study predates), and the loss concentrates in scriptural text.
 
 ## Layout
 
@@ -58,6 +61,9 @@ experiments/
   punct_aug.py naqta_*.py             punctuation augmentation + restoration
   restore_then_segment.py             oracle map-back and restoration study
   error_by_cluster.py genre_proxy.py  per-cluster error analysis
+  bootstrap_paired.py gate_member.py  paired document bootstrap, member gates
+  oracle_headroom.py                  decoding-ceiling probes
+  force_final_boundary.py             final-boundary structural constraint
   official_eval.py validate_submission.py   scoring + structural checks
   collect_results.py                  rebuilds the P/R/F1 ledger from results.json
   test_*.py                           regression checks
