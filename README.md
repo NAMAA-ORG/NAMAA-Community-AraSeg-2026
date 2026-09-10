@@ -1,7 +1,7 @@
 # NAMAA-Community at AraSeg Shared Task 2026
 
-Experiment code for the NAMAA-Community closed-track submission to the
-**AraSeg 2026** Arabic sentence-segmentation shared task.
+Experiment code for the NAMAA-Community submission to the **AraSeg 2026** Arabic
+sentence-segmentation shared task.
 
 AraSeg frames segmentation as binary token classification over four *aligned*
 versions of the same documents, which makes punctuation a controlled variable:
@@ -18,16 +18,18 @@ ablations and runs that failed their gate — not just the four submitted system
 
 ## Results
 
-Macro-averaged document-level boundary F1. P/R/F1 are on the labeled practice
-test; the blind column is the held-out official Testing split (F1 only is
-reported by the organizers).
+Macro-averaged document-level boundary F1. Practice columns are the labeled
+practice test; the blind columns are the held-out official Testing split, scored
+by the organizers to one decimal. Ranks are among registered teams that
+submitted a system-description paper, which is why they differ from the raw
+CodaBench leaderboards. The same four systems were entered in both tracks.
 
-| Subtask | Submitted system | P | R | F1 | Blind F1 | Rank |
-|---|---|---:|---:|---:|---:|---:|
-| PA | logit average (3 members) | 95.01 | 94.59 | **94.49** | 94.4 | 9/13 |
-| NP | OOF stack (4 + SaT) | 91.91 | 94.64 | **92.84** | 91.3 | 4/10 |
-| NoPnx-PA | MEMM decoder (7 + SaT) | 87.74 | 89.31 | **87.82** | 89.9 | 4/10 |
-| NoPnx-NP | MEMM decoder (6 + SaT) | 86.07 | 88.43 | **86.49** | 87.0 | 3/12 |
+| Subtask | Submitted system | Practice P / R / F1 | Blind P / R / F1 | Closed rank | Open rank |
+|---|---|---:|---:|---:|---:|
+| PA | logit average (3 members) | 95.01 / 94.59 / **94.49** | 93.5 / 95.6 / **94.4** | 6 / 12 | 4 / 7 |
+| NP | OOF stack (4 + SaT) | 91.91 / 94.64 / **92.84** | 92.3 / 91.2 / **91.3** | 3 / 10 | 2 / 6 |
+| NoPnx-PA | MEMM decoder (7 + SaT) | 87.74 / 89.31 / **87.82** | 88.4 / 92.3 / **89.9** | 4 / 9 | 3 / 6 |
+| NoPnx-NP | MEMM decoder (6 + SaT) | 86.07 / 88.43 / **86.49** | 85.9 / 89.2 / **87.0** | 3 / 10 | 3 / 7 |
 
 The mean blind change was +0.24 F1. The Testing phase accepted repeated
 submissions, and every version we uploaded had already cleared its prespecified
@@ -38,10 +40,11 @@ selection decision.
 
 - **Model diversity helps.** Ensembles of bidirectional LoRA LLMs, XLM-R
   variants, a character-level SaT model and punctuation-informed members beat
-  their strongest single-model anchors; architecturally distinct but weak
-  members still receive large fitted weights.
+  their strongest single-model anchors by +1.2 / +1.6 / +3.2 / +4.1 F1 from PA
+  through NoPnx-NP; architecturally distinct but weak members still receive
+  large fitted weights.
 - **Sequence decoding helps only without punctuation.** The same train-only
-  logistic MEMM adds +0.92 / +0.55 F1 on the two punctuation-free subtasks and
+  logistic MEMM adds +0.9 / +0.6 F1 on the two punctuation-free subtasks and
   is rejected on both punctuated ones — a clean four-way split that also holds
   directionally on the blind data.
 - **Punctuation removal is the dominant remaining cost.** Mapping punctuated
