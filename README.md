@@ -40,7 +40,7 @@ selection decision.
 
 The nineteen checkpoints behind the four submitted systems, plus the fitted
 combiner weights, are released under
-[NAMAA-Community-AraSeg-2026](https://huggingface.co/collections/NAMAA-Space/namaa-community-araseg-2026).
+[NAMAA-Community-AraSeg-2026]([https://huggingface.co/collections/NAMAA-Space/namaa-community-araseg-2026](https://huggingface.co/collections/NAMAA-Space/namaa-at-arabicnlp-2026-araseg-shared-task).
 
 Start at [`NAMAA-Space/araseg-2026`](https://huggingface.co/NAMAA-Space/araseg-2026):
 it holds the decoder and stacker weights, the thresholds, and the frozen
