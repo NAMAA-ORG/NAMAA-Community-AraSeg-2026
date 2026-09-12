@@ -36,6 +36,43 @@ submissions, and every version we uploaded had already cleared its prespecified
 paired-bootstrap gate on the practice test, so no blind score fed back into a
 selection decision.
 
+## Models
+
+The nineteen checkpoints behind the four submitted systems, plus the fitted
+combiner weights, are released under
+[NAMAA-Community-AraSeg-2026](https://huggingface.co/collections/NAMAA-Space/namaa-community-araseg-2026).
+
+Start at [`NAMAA-Space/araseg-2026`](https://huggingface.co/NAMAA-Space/araseg-2026):
+it holds the decoder and stacker weights, the thresholds, and the frozen
+out-of-fold TRAIN matrices they were fit on. The members are ensemble inputs —
+each emits uncalibrated per-word boundary probabilities and reproduces no
+published score on its own.
+
+| Subtask | Members | Thr. |
+|---|---|---|
+| PA | `e25-xlmr-pa` `e32-qwen35-9b-pa` `e33-gemma4-12b-pa` | 0.25 |
+| NP | `e40-qwen35-9b-np` `e15-xlmr-np-s1` `e16-xlmr-np-s2` `e38-xlmr-multitask` `sat-ft` | 0.36 |
+| NoPnx-PA | `e41-qwen35-9b-nopnx-pa` `e17-xlmr-nopnx-pa-s1` `e18-xlmr-nopnx-pa-s2` `e11-xlmr-nopnx-pa-w2` `e38-xlmr-multitask` `e69-naqta-nopnx-pa` `e76-naqta-restore-nopnx-pa-s2` `sat-ft` | 0.46 |
+| NoPnx-NP | `e42-qwen35-9b-nopnx-np` `e19-xlmr-nopnx-np-s1` `e20-xlmr-nopnx-np-s2` `e12-xlmr-nopnx-np-w2` `e38-xlmr-multitask` `e70-naqta-nopnx-np` `sat-ft` | 0.34 |
+
+All repos are `NAMAA-Space/araseg-<name>`. `e38` and `sat-ft` are members of three
+systems each; PA has no fitted head, being a plain logit average.
+
+Weights are PyTorch `state_dict` files, not HF-format checkpoints — build the
+architecture from the config YAML and base model, then `load_state_dict`, as
+`ensemble.py` and `verify_offcluster.py` do. The LoRA members need the pinned
+`requirements-llm.txt` stack to instantiate at all.
+
+Two caveats worth reading before reproducing:
+
+- `e76` was trained on text with Naqta-predicted commas inserted, and needs
+  `MostafaMaroof/Naqta` at **inference** time (`min_p=0.3`, comma `,`), not only
+  during training. NoPnx-PA does not reproduce without it.
+- The `oof/` matrices in the hub cannot be regenerated — the five-fold models
+  that produced them are gone. They include the `e75` folds, which belong to no
+  lock but are required to reproduce the 15-subset gate that *selected* the final
+  NoPnx-PA membership.
+
 ## What the paper reports
 
 - **Model diversity helps.** Ensembles of bidirectional LoRA LLMs, XLM-R
@@ -128,6 +165,9 @@ network access, a warm cache, or a GPU.
 | `Qwen/Qwen3.5-9B` | `c202236235762e1c871ad0ccb60c8ee5ba337b9a` |
 | `Qwen/Qwen3.5-27B` | `fc05daec18b0a78c049392ed2e771dde82bdf654` |
 | `google/gemma-4-12B` | `e73636d4f797dec63c3081bb6ed5c7b0bb3f2089` |
+| `FacebookAI/xlm-roberta-large` | `c23d21b0620b635a76227c604d44e43a9f0ee389` |
+| `MostafaMaroof/Naqta` | `3ce58ba7dd6ae2fa7eaf505a5fc72db479efe01d` |
+| `segment-any-text/sat-12l-sm` | `d70c72a9331b2d5a9e82baad00c64964a23a09bb` |
 
 LoRA bases are stock Hugging Face weights at these revisions, so a run is
 pinned by `base@revision` plus the adapter its config produces. Trained
@@ -138,6 +178,9 @@ adapters and probability caches are not currently released.
 **NAMAA-Community** — Muhammed Ragab, Khloud Al Jallad, Karim Elsayed, Omer Nacar.
 
 Code released under the **MIT** license. The four `AraSeg-2026-Shared-Task-*`
-datasets are provided by the shared-task organisers under their own terms, and
-the pretrained base models under their respective licenses; this repository
-contains only our code, configurations, and derived analysis.
+datasets are provided by the shared-task organisers under their own terms. The
+released checkpoints inherit their base models' licenses: MIT for the XLM-R and
+SaT members, Apache-2.0 for the Qwen members, and — for `e33` alone — the
+**Gemma Terms of Use**, which restrict redistribution and downstream use more
+than the rest of the collection. Check that license before reusing `e33` or any
+ensemble that includes it.
